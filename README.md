@@ -36,15 +36,20 @@ flowchart TD
     STM32 --> GPIO["GPIO / EXTI"]
     STM32 --> ADC["ADC1"]
 
-    CAN --> CM["CanManager"]
-    GPIO --> IM["InputManager"]
-    ADC --> SM["SensorManager"]
+    CAN --> CANM["CanManager"]
+    GPIO --> INPUT["InputManager"]
+    ADC --> SENSOR["SensorManager"]
 
-    CM --> VS["VehicleState"]
-    IM --> GE["GPIO Events"]
+    CANM --> STATE["VehicleState"]
+    INPUT --> EVENTS["GPIO Events"]
 
-    VS --> CC["ClusterComm"]
-    CC --> UART["USART2 / UART"]
+    STATE --> COMM["ClusterComm"]
+    COMM --> UART["USART2 / UART"]
+```
+
+The primary vehicle-data path is:
+
+**CAN → CanManager → VehicleState → ClusterComm → UART**
 
 ## CAN Communication
 
