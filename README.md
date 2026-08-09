@@ -28,23 +28,23 @@ The project was developed without physical automotive hardware, with the embedde
 
 ## System Architecture
 
-                    STM32F407
-                       │
-        ┌──────────────┼──────────────┐
-        │              │              │
-       CAN            GPIO           ADC
-        │              │              │
-        ▼              ▼              ▼
-  CanManager     InputManager    SensorManager
-        │              │
-        ▼              ▼
-   VehicleState    GPIO Events
-        │
-        ▼
-  ClusterComm
-        │
-        ▼
-      UART
+```mermaid
+flowchart TD
+    STM32["STM32F407"]
+
+    STM32 --> CAN["CAN1"]
+    STM32 --> GPIO["GPIO / EXTI"]
+    STM32 --> ADC["ADC1"]
+
+    CAN --> CM["CanManager"]
+    GPIO --> IM["InputManager"]
+    ADC --> SM["SensorManager"]
+
+    CM --> VS["VehicleState"]
+    IM --> GE["GPIO Events"]
+
+    VS --> CC["ClusterComm"]
+    CC --> UART["USART2 / UART"]
 
 ## CAN Communication
 
